@@ -1,0 +1,3 @@
+{
+  "Lua.diagnostics.globals": ["BOOKTYPE_SPELL", "MAX_ACCOUNT_MACROS"]
+}

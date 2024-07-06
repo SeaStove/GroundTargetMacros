@@ -1,0 +1,7 @@
+## Interface: 100207
+## Version: 1.0.0
+## Title: Ground Target Macros
+## Notes: A simple addon to help you create ground target macros.
+## Author: SeaStove
+
+GroundTargetMacros.lua
