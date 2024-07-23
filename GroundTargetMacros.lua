@@ -40,8 +40,9 @@ local function IsGroundTargeted(spellID)
         [32375] = true,  -- Mass Dispel (Priest)
         [81782] = true,  -- Power Word: Barrier (Priest)
         [121536] = true, -- Angelic Feather (Priest)
-        [1725] = true,   -- Distract (Rogue)
+        [205385] = true, -- Shadow Crash (Priest)
         -- Rogue
+        [1725] = true,   -- Distract (Rogue)
         [185767] = true, -- Cannonball Barrage (Rogue)
         [195457] = true, -- Grappling Hook (Rogue)
         -- Shaman
