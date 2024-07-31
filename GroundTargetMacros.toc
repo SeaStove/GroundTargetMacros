@@ -1,4 +1,4 @@
-## Interface: 110000
+## Interface: 110000, 110002
 ## Version: 1.1.1
 ## Title: Ground Target Macros
 ## Notes: A simple addon to help you create ground target macros.
