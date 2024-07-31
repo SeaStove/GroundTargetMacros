@@ -78,26 +78,32 @@ local function CreateGroundTargetMacros()
     local numMacros = GetNumMacros()
 
     -- Iterate through the player's spellbook
-    for i = 1, GetNumSpellTabs() do
-        local _, _, offset, numSpells = GetSpellTabInfo(i)
-        for j = 1, numSpells do
-            local spellIndex = offset + j
-            local spellName, _, spellID = GetSpellBookItemName(spellIndex, BOOKTYPE_SPELL)
-            if spellName and IsGroundTargeted(spellID) then
-                local macroName = spellName .. " (Ground)"
-                local macroBody = "#showtooltip " .. spellName .. "\n/cast [@cursor] " .. spellName
+    for i = 1, C_SpellBook.GetNumSpellBookSkillLines() do
+        local skillLineInfo = C_SpellBook.GetSpellBookSkillLineInfo(i)
+        local offset = skillLineInfo.itemIndexOffset
+        local numSpells = skillLineInfo.numSpellBookItems
 
-                -- Check if the macro already exists
-                local macroSlot = GetMacroIndexByName(macroName)
-                if macroSlot == 0 and numMacros < MAX_ACCOUNT_MACROS then
-                    -- Create a new macro
-                    CreateMacro(macroName, "INV_MISC_QUESTIONMARK", macroBody, 1)
+        if offset and numSpells then
+            for j = offset + 1, offset + numSpells do
+                local spellBookItemInfo = C_SpellBook.GetSpellBookItemInfo(j, Enum.SpellBookSpellBank.Player)
+                local spellID = spellBookItemInfo.spellID
+                local spellName = spellBookItemInfo.name
+
+                if spellName and IsGroundTargeted(spellID) then
+                    local macroName = spellName .. " (Ground)"
+                    local macroBody = "#showtooltip " .. spellName .. "\n/cast [@cursor] " .. spellName
+
+                    -- Check if the macro already exists
+                    local macroSlot = GetMacroIndexByName(macroName)
+                    if macroSlot == 0 and numMacros < MAX_ACCOUNT_MACROS then
+                        -- Create a new macro
+                        CreateMacro(macroName, "INV_MISC_QUESTIONMARK", macroBody, 1)
+                    end
                 end
             end
         end
     end
 end
-
 
 local f = CreateFrame("Frame")
 function f:OnEvent(event, ...)
