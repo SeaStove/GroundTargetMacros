@@ -15,9 +15,9 @@ local function IsGroundTargeted(spellID)
         [207684] = true, -- Sigil of Misery (Demon Hunter)
         -- Druid
         [102793] = true, -- Ursol's Vortex (Druid)
-        [191034] = true, -- Starfall (Druid)
         [205636] = true, -- Force of Nature (Druid)
-        [202770] = true, -- Fury of Elune (Druid)
+        [145205] = true, -- Efflorescence (Druid)
+        [390378] = true, -- Orbital Strike (Druid, if talented)
         -- Hunter
         [1543] = true,   -- Flare (Hunter)
         [6197] = true,   -- Eagle Eye (Hunter)
@@ -38,13 +38,16 @@ local function IsGroundTargeted(spellID)
         [115313] = true, -- Summon Jade Serpent Statue (Monk)
         [115315] = true, -- Summon Black Ox Statue (Monk)
         [116844] = true, -- Ring of Peace (Monk)
+        [325153] = true, -- Exploding Keg (Monk)
         -- Paladin
         [114158] = true, -- Light's Hammer (Paladin)
+        [343721] = true, -- Final Reckoning (Paladin)
         -- Priest
         [32375] = true,  -- Mass Dispel (Priest)
         [81782] = true,  -- Power Word: Barrier (Priest)
         [121536] = true, -- Angelic Feather (Priest)
         [205385] = true, -- Shadow Crash (Priest)
+        [34861] = true,  -- Holy Word: Sanctify (Priest)
         -- Rogue
         [1725] = true,   -- Distract (Rogue)
         [185767] = true, -- Cannonball Barrage (Rogue)
@@ -63,17 +66,25 @@ local function IsGroundTargeted(spellID)
         [204332] = true, -- Windfury Totem (Shaman)
         [207399] = true, -- Ancestral Protection Totem (Shaman)
         [215864] = true, -- Rainfall (Shaman)
+        [108287] = true, -- Totemic Projection (Shaman)
         -- Warlock
         [1122] = true,   -- Summon Infernal (Warlock)
         [5740] = true,   -- Rain of Fire (Warlock)
         [30283] = true,  -- Shadowfury (Warlock)
         [152108] = true, -- Cataclysm (Warlock)
         [278350] = true, -- Vile Taint (Warlock)
+        [111771] = true, -- Demonic Gateway (Warlock)
+        [386833] = true, -- Guillotine (Warlock)
         -- Warrior
         [6544] = true,   -- Heroic Leap (Warrior)
         [152277] = true, -- Ravager (Arms) (Warrior)
         [228920] = true, -- Ravager (Protection) (Warrior)
+        -- Evoker
+        [357210] = true, -- Deep Breath (Evoker)
+        [370665] = true, -- Rescue (Evoker)
+        [358385] = true, -- Landslide (Evoker)
     }
+    
     return groundTargetedSpells[spellID] or false
 end
 
