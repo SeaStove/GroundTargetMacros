@@ -4,4 +4,5 @@
 ## Notes: A simple addon to help you create ground target macros.
 ## Author: SeaStove
 
+Utils.lua
 GroundTargetMacros.lua

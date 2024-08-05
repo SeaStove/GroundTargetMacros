@@ -1,3 +1,10 @@
 {
-  "Lua.diagnostics.globals": ["BOOKTYPE_SPELL", "MAX_ACCOUNT_MACROS"]
+  "Lua.diagnostics.globals": [
+    "BOOKTYPE_SPELL",
+    "MAX_ACCOUNT_MACROS",
+    "InterfaceOptionsFrame_OpenToCategory",
+    "SlashCmdList",
+    "InterfaceOptions_AddCategory",
+    "GTMUtils"
+  ]
 }
