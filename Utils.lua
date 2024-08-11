@@ -1,6 +1,7 @@
-GTMUtils = {}
+Utils = {}
+
 -- Function to determine if a spell is ground-targeted
-function GTMUtils:IsGroundTargeted(spellID)
+function Utils:IsGroundTargeted(spellID)
     local groundTargetedSpells = {
         -- Death Knight
         [43265] = true,  -- Death and Decay (Death Knight)

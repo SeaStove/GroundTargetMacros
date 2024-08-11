@@ -1,4 +1,5 @@
--- Function to create or edit macros for ground-targeted spells
+GroundTargetMacros = CreateFrame("Frame", "GroundTargetMacrosFrame")
+
 local function CreateGroundTargetMacros()
     local numMacros = GetNumMacros()
 
@@ -14,7 +15,7 @@ local function CreateGroundTargetMacros()
                 local spellID = spellBookItemInfo.spellID
                 local spellName = spellBookItemInfo.name
 
-                if spellName and GTMUtils:IsGroundTargeted(spellID) then
+                if spellName and Utils:IsGroundTargeted(spellID) then
                     local macroName = spellName .. " (Ground)"
                     local macroBody = "#showtooltip " .. spellName .. "\n/cast [@cursor] " .. spellName
 
@@ -30,59 +31,38 @@ local function CreateGroundTargetMacros()
     end
 end
 
-
-local f = CreateFrame("Frame")
-function f:OnEvent(event, ...)
+function GroundTargetMacros:OnEvent(event, ...)
     self[event](self, event, ...)
 end
 
-function f:PLAYER_ENTERING_WORLD(event)
+function GroundTargetMacros:PLAYER_ENTERING_WORLD(event)
     CreateGroundTargetMacros()
 end
 
-function f:ADDON_LOADED(event, addon)
+function GroundTargetMacros:ADDON_LOADED(event, addon)
     if addon == "GroundTargetMacros" then
+        GroundTargetMacrosDB = GroundTargetMacrosDB or {}
+        self.db = GroundTargetMacrosDB
+        for k, v in pairs(self.defaults) do
+            if self.db[k] == nil then
+                self.db[k] = v
+            end
+        end
+        self.db.sessions = self.db.sessions + 1
+        print("You loaded this addon " .. self.db.sessions .. " times")
+        local version, build, _, tocversion = GetBuildInfo()
+        print(format("The current WoW build is %s (%d) and TOC is %d", version, build, tocversion))
+        self:InitializeOptions()
         CreateGroundTargetMacros()
     end
 end
 
-function f:SPELLS_CHANGED(event)
+function GroundTargetMacros:SPELLS_CHANGED(event)
     CreateGroundTargetMacros()
 end
 
-f:RegisterEvent("SPELLS_CHANGED")
-f:RegisterEvent("ADDON_LOADED")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
+GroundTargetMacros:RegisterEvent("SPELLS_CHANGED")
+GroundTargetMacros:RegisterEvent("ADDON_LOADED")
+GroundTargetMacros:RegisterEvent("PLAYER_ENTERING_WORLD")
 
-f:SetScript("OnEvent", f.OnEvent)
-
-function f:InitializeOptions()
-    self.panel = CreateFrame("Frame")
-    self.panel.name = "HelloWorld"
-
-    local cb = CreateFrame("CheckButton", nil, self.panel, "InterfaceOptionsCheckButtonTemplate")
-    cb:SetPoint("TOPLEFT", 20, -20)
-    cb.Text:SetText("Print when you jump")
-    -- there already is an existing OnClick script that plays a sound, hook it
-    cb:HookScript("OnClick", function(_, btn, down)
-        self.db.someOption = cb:GetChecked()
-    end)
-    cb:SetChecked(self.db.someOption)
-
-    local btn = CreateFrame("Button", nil, self.panel, "UIPanelButtonTemplate")
-    btn:SetPoint("TOPLEFT", cb, 0, -40)
-    btn:SetText("Click me")
-    btn:SetWidth(100)
-    btn:SetScript("OnClick", function()
-        print("You clicked me!")
-    end)
-
-    InterfaceOptions_AddCategory(self.panel)
-end
-
-SLASH_HELLOWORLD1 = "/hw"
-SLASH_HELLOWORLD2 = "/helloworld"
-
-SlashCmdList.HELLOWORLD = function(msg, editBox)
-    InterfaceOptionsFrame_OpenToCategory(f.panel)
-end
+GroundTargetMacros:SetScript("OnEvent", GroundTargetMacros.OnEvent)

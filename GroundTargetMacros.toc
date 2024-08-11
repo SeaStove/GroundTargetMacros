@@ -3,6 +3,8 @@
 ## Title: Ground Target Macros
 ## Notes: A simple addon to help you create ground target macros.
 ## Author: SeaStove
+## SavedVariables: GroundTargetMacrosDB
 
+Core.lua
+Options.lua
 Utils.lua
-GroundTargetMacros.lua
