@@ -1,6 +1,17 @@
 GroundTargetMacros = CreateFrame("Frame", "GroundTargetMacrosFrame")
 
-local function CreateGroundTargetMacros()
+local function CreateOrUpdateMacro(macroName, macroBody, numMacros)
+    local macroSlot = GetMacroIndexByName(macroName)
+    if macroSlot == 0 and numMacros < MAX_ACCOUNT_MACROS then
+        -- Create a new macro
+        CreateMacro(macroName, "INV_MISC_QUESTIONMARK", macroBody, true)
+    elseif macroSlot > 0 then
+        -- Update existing macro
+        EditMacro(macroSlot, macroName, "INV_MISC_QUESTIONMARK", macroBody)
+    end
+end
+
+function GroundTargetMacros:CreateGroundTargetMacros()
     local numMacros = GetNumMacros()
 
     -- Iterate through the player's spellbook
@@ -16,15 +27,25 @@ local function CreateGroundTargetMacros()
                 local spellName = spellBookItemInfo.name
 
                 if spellName and Utils:IsGroundTargeted(spellID) then
-                    local macroName = spellName .. " (Ground)"
-                    local macroBody = "#showtooltip " .. spellName .. "\n/cast [@cursor] " .. spellName
+                    local macroBody = "#showtooltip " .. spellName .. "\n"
 
-                    -- Check if the macro already exists
-                    local macroSlot = GetMacroIndexByName(macroName)
-                    if macroSlot == 0 and numMacros < MAX_ACCOUNT_MACROS then
-                        -- Create a new macro
-                        CreateMacro(macroName, "INV_MISC_QUESTIONMARK", macroBody, true)
+                    -- Create macros based on selected options
+                    if GroundTargetMacros.db.playerMacros then
+                        local playerMacroName = spellName .. " (Player)"
+                        local playerMacroBody = macroBody .. "/cast [@player] " .. spellName
+                        CreateOrUpdateMacro(playerMacroName, playerMacroBody, numMacros)
                     end
+
+                    if GroundTargetMacros.db.mouseoverMacros then
+                        local mouseoverMacroName = spellName .. " (Mouseover)"
+                        mouseoverMacroBody = macroBody .. "/cast [@mouseover] " .. spellName
+                        CreateOrUpdateMacro(mouseoverMacroName, mouseoverMacroBody, numMacros)
+                    end
+
+                    -- Default ground-targeted macro
+                    local macroName = spellName .. " (Ground)"
+                    macroBody = "#showtooltip " .. spellName .. "\n/cast [@cursor] " .. spellName
+                    CreateOrUpdateMacro(macroName, macroBody, numMacros)
                 end
             end
         end
@@ -36,7 +57,7 @@ function GroundTargetMacros:OnEvent(event, ...)
 end
 
 function GroundTargetMacros:PLAYER_ENTERING_WORLD(event)
-    CreateGroundTargetMacros()
+    GroundTargetMacros:CreateGroundTargetMacros()
 end
 
 function GroundTargetMacros:ADDON_LOADED(event, addon)
@@ -53,12 +74,12 @@ function GroundTargetMacros:ADDON_LOADED(event, addon)
         local version, build, _, tocversion = GetBuildInfo()
         print(format("The current WoW build is %s (%d) and TOC is %d", version, build, tocversion))
         self:InitializeOptions()
-        CreateGroundTargetMacros()
+        GroundTargetMacros:CreateGroundTargetMacros()
     end
 end
 
 function GroundTargetMacros:SPELLS_CHANGED(event)
-    CreateGroundTargetMacros()
+    GroundTargetMacros:CreateGroundTargetMacros()
 end
 
 GroundTargetMacros:RegisterEvent("SPELLS_CHANGED")
