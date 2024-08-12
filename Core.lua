@@ -11,6 +11,22 @@ local function CreateOrUpdateMacro(macroName, macroBody, numMacros)
     end
 end
 
+function GroundTargetMacros:CheckForUpdate()
+    local currentVersion = C_AddOns.GetAddOnMetadata("GroundTargetMacros", "Version")
+    local savedVersion = self.db.version
+
+    if savedVersion ~= currentVersion then
+        -- Print update message to the user
+        print("|cff33ff99Ground Target Macros:|r Your addon has been updated to version " .. currentVersion .. ".")
+        print(
+            "|cff33ff99Ground Target Macros:|r New features include the ability to create [@player] and [@mouseover] macros! Check the options panel > AddOns tab to enable them."
+        )
+
+        -- Update the saved version to the current version
+        self.db.version = currentVersion
+    end
+end
+
 function GroundTargetMacros:CreateGroundTargetMacros()
     local numMacros = GetNumMacros()
 
@@ -70,9 +86,13 @@ function GroundTargetMacros:ADDON_LOADED(event, addon)
             end
         end
         self.db.sessions = self.db.sessions + 1
-        print("You loaded this addon " .. self.db.sessions .. " times")
-        local version, build, _, tocversion = GetBuildInfo()
-        print(format("The current WoW build is %s (%d) and TOC is %d", version, build, tocversion))
+        -- print("You loaded this addon " .. self.db.sessions .. " times")
+        -- local version, build, _, tocversion = GetBuildInfo()
+        -- print(format("The current WoW build is %s (%d) and TOC is %d", version, build, tocversion))
+
+        -- Check for updates and notify the user
+        self:CheckForUpdate()
+
         self:InitializeOptions()
         GroundTargetMacros:CreateGroundTargetMacros()
     end
