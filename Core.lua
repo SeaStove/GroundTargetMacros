@@ -5,9 +5,6 @@ local function CreateOrUpdateMacro(macroName, macroBody, numMacros)
     if macroSlot == 0 and numMacros < MAX_ACCOUNT_MACROS then
         -- Create a new macro
         CreateMacro(macroName, "INV_MISC_QUESTIONMARK", macroBody, true)
-    elseif macroSlot > 0 then
-        -- Update existing macro
-        EditMacro(macroSlot, macroName, "INV_MISC_QUESTIONMARK", macroBody)
     end
 end
 
