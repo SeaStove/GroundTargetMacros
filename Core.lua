@@ -16,7 +16,7 @@ function GroundTargetMacros:CheckForUpdate()
         -- Print update message to the user
         print("|cff33ff99Ground Target Macros:|r Your addon has been updated to version " .. currentVersion .. ".")
         print(
-            "|cff33ff99Ground Target Macros:|r New features include the ability to create [@player] and [@mouseover] macros! Check the options panel > AddOns tab to enable them."
+            "|cff33ff99Ground Target Macros:|r Fixed some issues with creating [@player] and [@mouseover] macros! Check the options panel > AddOns tab to enable them."
         )
 
         -- Update the saved version to the current version
