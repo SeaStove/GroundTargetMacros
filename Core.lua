@@ -54,7 +54,7 @@ function GroundTargetMacros:CreateGroundTargetMacros()
 
                     if GroundTargetMacros.db.mouseoverMacros then
                         local mouseoverMacroName = spellName .. " (Mouseover)"
-                        mouseoverMacroBody = macroBody .. "/cast [@mouseover] " .. spellName
+                        local mouseoverMacroBody = macroBody .. "/cast [@mouseover] " .. spellName
                         CreateOrUpdateMacro(mouseoverMacroName, mouseoverMacroBody, numMacros)
                     end
 

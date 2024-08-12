@@ -85,6 +85,7 @@ function Utils:IsGroundTargeted(spellID)
         [357210] = true, -- Deep Breath (Evoker)
         [370665] = true, -- Rescue (Evoker)
         [358385] = true, -- Landslide (Evoker)
+        [368847] = true, -- Firestorm (Evoker)
     }
 
     return groundTargetedSpells[spellID] or false
