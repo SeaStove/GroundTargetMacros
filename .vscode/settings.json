@@ -6,7 +6,9 @@
     "SlashCmdList",
     "InterfaceOptions_AddCategory",
     "RESET",
-    "Settings"
+    "Settings",
+    "EventRegistry",
+    "CopyTable"
   ],
   "Lua.runtime.version": "Lua 5.1",
   "Lua.runtime.builtin": {

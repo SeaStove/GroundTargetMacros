@@ -81,6 +81,7 @@ function Utils:IsGroundTargeted(spellID)
         [6544] = true,   -- Heroic Leap (Warrior)
         [152277] = true, -- Ravager (Arms) (Warrior)
         [228920] = true, -- Ravager (Protection) (Warrior)
+        [376079] = true, -- Champion's Spear (Warrior)
         -- Evoker
         [357210] = true, -- Deep Breath (Evoker)
         [370665] = true, -- Rescue (Evoker)
