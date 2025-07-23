@@ -15,6 +15,7 @@ function Utils:IsGroundTargeted(spellID)
         [202138] = true, -- Sigil of Chains (Demon Hunter)
         [204596] = true, -- Sigil of Flame (Demon Hunter)
         [207684] = true, -- Sigil of Misery (Demon Hunter)
+        [390163] = true, -- Sigil of Spite (Demon Hunter)
         -- Druid
         [102793] = true, -- Ursol's Vortex (Druid)
         [205636] = true, -- Force of Nature (Druid)
